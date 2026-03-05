@@ -130,7 +130,7 @@ copy .env.example .env
 
 ```bash
 
-python app/main.py
+uvicorn app.main:app --reload
 
 ```
 
