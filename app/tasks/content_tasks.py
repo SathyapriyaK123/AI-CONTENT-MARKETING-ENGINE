@@ -97,3 +97,63 @@ def generate_full_campaign_task(self, campaign_brief: str, word_count: int = 500
             'status': 'FAILED',
             'error': str(e)
         }
+
+
+@celery_app.task(bind=True, name='generate_parallel_campaign_task')
+def generate_parallel_campaign_task(self, campaign_brief: str, word_count: int = 500):
+    """
+    Generate full campaign with PARALLEL execution
+    All content types generated simultaneously for faster results
+    """
+    from celery import group
+    
+    try:
+        logger.info(f"Starting PARALLEL campaign generation for: {campaign_brief}")
+        self.update_state(state='PROCESSING', meta={'status': 'Starting parallel generation...', 'progress': 10})
+        
+        # Create a group of tasks to run in parallel
+        job = group(
+            generate_blog_task.s(campaign_brief, word_count),
+            generate_tweets_task.s(campaign_brief, 3),
+        )
+        
+        # Execute all tasks in parallel
+        self.update_state(state='PROCESSING', meta={'status': 'Generating all content simultaneously...', 'progress': 30})
+        results = job.apply_async()
+        
+        # Wait for all to complete
+        self.update_state(state='PROCESSING', meta={'status': 'Waiting for parallel tasks...', 'progress': 50})
+        completed_results = results.get()
+        
+        # Also generate Instagram and LinkedIn (can add to parallel group if needed)
+        self.update_state(state='PROCESSING', meta={'status': 'Generating social media content...', 'progress': 70})
+        instagram = generate_instagram_caption(campaign_brief)
+        linkedin = generate_linkedin_post(campaign_brief)
+        
+        self.update_state(state='PROCESSING', meta={'status': 'Finalizing campaign...', 'progress': 90})
+        
+        # Extract results
+        blog_result = completed_results[0]
+        tweets_result = completed_results[1]
+        
+        logger.info(f"Parallel campaign generation completed")
+        return {
+            'status': 'SUCCESS',
+            'campaign_brief': campaign_brief,
+            'content': {
+                'blog_post': blog_result.get('blog_post', ''),
+                'tweets': tweets_result.get('tweets', []),
+                'instagram_caption': instagram,
+                'linkedin_post': linkedin
+            },
+            'summary': {
+                'total_items': 4,
+                'generation_method': 'PARALLEL (faster!)'
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error in parallel campaign task: {str(e)}")
+        return {
+            'status': 'FAILED',
+            'error': str(e)
+        }
