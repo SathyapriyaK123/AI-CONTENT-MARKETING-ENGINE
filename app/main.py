@@ -4,9 +4,9 @@ from app.config import settings
 from app.services.text_generator import (
     generate_blog_post,
     generate_tweets,
-    generate_instagram_caption
+    generate_instagram_caption,
+    generate_linkedin_post
 )
-
 # Validate configuration on startup
 settings.validate()
 
@@ -144,3 +144,19 @@ def create_full_campaign(request: CampaignRequest):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
+@app.post("/generate/linkedin")
+def create_linkedin_post(campaign_brief: str):
+    """Generate professional LinkedIn post"""
+    try:
+        post = generate_linkedin_post(campaign_brief)
+        
+        return {
+            "success": True,
+            "campaign_brief": campaign_brief,
+            "linkedin_post": post,
+            "word_count": len(post.split())
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

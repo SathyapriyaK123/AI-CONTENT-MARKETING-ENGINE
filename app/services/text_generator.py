@@ -143,3 +143,43 @@ Write the caption now:"""
     except Exception as e:
         logger.error(f"Error: {str(e)}")
         return f"Error: {str(e)}"
+
+
+
+
+def generate_linkedin_post(campaign_brief: str) -> str:
+    """Generate professional LinkedIn post"""
+    
+    prompt = f"""You are a LinkedIn marketing expert.
+
+Create a professional LinkedIn post about: {campaign_brief}
+
+Requirements:
+- 150-300 words
+- Professional tone
+- Industry insights
+- Include call-to-action
+- 3-5 relevant hashtags at the end
+
+Write the LinkedIn post now:"""
+    
+    try:
+        logger.info(f"Generating LinkedIn post...")
+        
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": "You are a LinkedIn content expert."},
+                {"role": "user", "content": prompt}
+            ],
+            model="llama-3.3-70b-versatile",
+            temperature=0.7,
+            max_tokens=600
+        )
+        
+        result = chat_completion.choices[0].message.content
+        logger.info(f"LinkedIn post generated")
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error: {str(e)}")
+        return f"Error: {str(e)}"
