@@ -183,3 +183,43 @@ Write the LinkedIn post now:"""
     except Exception as e:
         logger.error(f"Error: {str(e)}")
         return f"Error: {str(e)}"
+
+
+
+def generate_email_marketing(campaign_brief: str, email_type: str = "promotional") -> str:
+    """Generate email marketing copy"""
+    
+    prompt = f"""You are an email marketing expert.
+
+Create a {email_type} email about: {campaign_brief}
+
+Requirements:
+- Compelling subject line (start with "Subject:")
+- Engaging opening line
+- Clear value proposition
+- Strong call-to-action
+- Professional but friendly tone
+- 150-250 words total
+
+Write the complete email:"""
+    
+    try:
+        logger.info(f"Generating {email_type} email...")
+        
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": "You are an email marketing expert."},
+                {"role": "user", "content": prompt}
+            ],
+            model="llama-3.3-70b-versatile",
+            temperature=0.7,
+            max_tokens=700
+        )
+        
+        result = chat_completion.choices[0].message.content
+        logger.info(f"Email generated successfully")
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error: {str(e)}")
+        return f"Error generating email: {str(e)}"

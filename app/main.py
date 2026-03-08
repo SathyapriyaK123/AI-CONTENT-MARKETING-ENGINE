@@ -5,9 +5,9 @@ from app.services.text_generator import (
     generate_blog_post,
     generate_tweets,
     generate_instagram_caption,
-    generate_linkedin_post
-)
-# Validate configuration on startup
+    generate_linkedin_post,
+    generate_email_marketing
+)# Validate configuration on startup
 settings.validate()
 
 app = FastAPI(
@@ -157,6 +157,29 @@ def create_linkedin_post(campaign_brief: str):
             "campaign_brief": campaign_brief,
             "linkedin_post": post,
             "word_count": len(post.split())
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+
+@app.post("/generate/email")
+def create_email(campaign_brief: str, email_type: str = "promotional"):
+    """
+    Generate email marketing copy
+    
+    - **campaign_brief**: Product/campaign description
+    - **email_type**: Type of email (promotional, welcome, newsletter, etc.)
+    """
+    try:
+        email = generate_email_marketing(campaign_brief, email_type)
+        
+        return {
+            "success": True,
+            "campaign_brief": campaign_brief,
+            "email_type": email_type,
+            "email_content": email,
+            "word_count": len(email.split())
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
