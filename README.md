@@ -39,6 +39,20 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 - ⏳ Image generation with DALL-E (Coming Week 3)
 - ⏳ Asynchronous task processing with Celery (Coming Week 2)
 - ⏳ React-based dashboard (Coming Week 4)
+## 📋 Features
+
+- ✅ FastAPI backend structure
+- ✅ Text generation using Groq AI (FREE & FAST)
+  - Blog posts, Tweets, Instagram, LinkedIn, Email, Product descriptions
+- ✅ **Asynchronous task processing with Celery + Redis**
+  - Background job processing
+  - Task status tracking
+  - Non-blocking API responses
+  - Instant task_id return
+- ✅ RESTful API with interactive documentation
+- ✅ Logging and error handling
+- ⏳ Image generation (Coming Week 3)
+- ⏳ React-based dashboard (Coming Week 4)
 
 \## 🛠️ Tech Stack
 
@@ -126,6 +140,7 @@ copy .env.example .env
 
 
 
+
 5\. Run the application:
 
 ```bash
@@ -178,6 +193,27 @@ Once running, visit:
 \- \*\*Week 3:\*\* Content Structuring \& Optimization 📅
 
 \- \*\*Week 4:\*\* Frontend Integration \& Deployment 📅
+
+## 🏗️ Architecture
+
+### Synchronous Endpoints (Immediate Response)
+- `/generate/*` - Direct generation, returns result immediately
+- Best for: Quick content generation, testing
+
+### Asynchronous Endpoints (Background Processing)
+- `/async/generate/*` - Returns task_id immediately, processes in background
+- `/async/status/{task_id}` - Check task progress and status
+- `/async/result/{task_id}` - Get final result when complete
+- Best for: Long-running tasks, multiple simultaneous requests, scalability
+
+### Task Queue Architecture
+```
+User Request → FastAPI → Redis (Queue) → Celery Worker → Groq AI
+     ↓                                          ↓
+  task_id (instant)                        Processing
+     ↓                                          ↓
+Poll /async/status/{task_id}  ←──────── Result Ready
+```
 
 
 
