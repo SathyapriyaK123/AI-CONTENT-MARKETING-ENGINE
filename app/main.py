@@ -6,7 +6,8 @@ from app.services.text_generator import (
     generate_tweets,
     generate_instagram_caption,
     generate_linkedin_post,
-    generate_email_marketing
+    generate_email_marketing,
+    generate_product_description
 )# Validate configuration on startup
 settings.validate()
 
@@ -180,6 +181,28 @@ def create_email(campaign_brief: str, email_type: str = "promotional"):
             "email_type": email_type,
             "email_content": email,
             "word_count": len(email.split())
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/generate/product-description")
+def create_product_description(product_name: str, features: str = ""):
+    """
+    Generate compelling product description
+    
+    - **product_name**: Name of the product
+    - **features**: Optional key features (comma-separated)
+    """
+    try:
+        description = generate_product_description(product_name, features)
+        
+        return {
+            "success": True,
+            "product_name": product_name,
+            "features": features,
+            "description": description,
+            "word_count": len(description.split())
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -223,3 +223,43 @@ Write the complete email:"""
     except Exception as e:
         logger.error(f"Error: {str(e)}")
         return f"Error generating email: {str(e)}"
+
+
+def generate_product_description(product_name: str, features: str = "") -> str:
+    """Generate compelling product description"""
+    
+    prompt = f"""You are a product copywriting expert.
+
+Create a compelling product description for: {product_name}
+{f"Key features: {features}" if features else ""}
+
+Requirements:
+- Attention-grabbing headline
+- Focus on benefits (not just features)
+- 100-150 words
+- Persuasive and engaging tone
+- Include call-to-action
+- Highlight unique selling points
+
+Write the product description:"""
+    
+    try:
+        logger.info(f"Generating product description for {product_name}...")
+        
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": "You are a product copywriting expert."},
+                {"role": "user", "content": prompt}
+            ],
+            model="llama-3.3-70b-versatile",
+            temperature=0.7,
+            max_tokens=500
+        )
+        
+        result = chat_completion.choices[0].message.content
+        logger.info(f"Product description generated successfully")
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error: {str(e)}")
+        return f"Error generating product description: {str(e)}"
