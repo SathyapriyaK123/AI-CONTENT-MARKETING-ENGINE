@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from app.config import settings
 from app.services.text_generator import (
+from app.api.async_endpoints import router as async_router
     generate_blog_post,
     generate_tweets,
     generate_instagram_caption,
@@ -12,6 +13,7 @@ from app.services.text_generator import (
 settings.validate()
 
 app = FastAPI(
+app.include_router(async_router)
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     debug=settings.DEBUG,
