@@ -23,22 +23,22 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 
 
 \## 📋 Features
+## 📋 Features
 
-
-
-\- ✅ FastAPI backend structure
-
-\- ⏳ Text generation using GPT-4
-
-\- ⏳ Image generation using DALL-E 3
-
-\- ⏳ Asynchronous task processing
-
-\- ⏳ Multi-platform content optimization
-
-\- ⏳ React-based dashboard
-
-
+- ✅ FastAPI backend structure
+- ✅ Text generation using Groq AI (FREE & FAST)
+  - Blog posts (customizable word count)
+  - Twitter/X posts (multiple variants)
+  - Instagram captions with hashtags
+  - LinkedIn posts (professional tone)
+  - Email marketing copy (promotional, welcome, newsletter)
+  - Product descriptions (benefit-focused)
+  - Full campaign generation (all content types at once)
+- ✅ RESTful API with interactive documentation
+- ✅ Logging and error handling
+- ⏳ Image generation with DALL-E (Coming Week 3)
+- ⏳ Asynchronous task processing with Celery (Coming Week 2)
+- ⏳ React-based dashboard (Coming Week 4)
 
 \## 🛠️ Tech Stack
 
@@ -141,6 +141,21 @@ Visit: http://localhost:8000
 
 
 \## 📚 API Documentation
+## 🔥 API Endpoints
+
+### Content Generation
+- **POST** `/generate/blog` - Generate blog posts
+- **POST** `/generate/tweets` - Generate tweet variants
+- **POST** `/generate/instagram` - Generate Instagram captions
+- **POST** `/generate/linkedin` - Generate LinkedIn posts
+- **POST** `/generate/email` - Generate email marketing copy
+- **POST** `/generate/product-description` - Generate product descriptions
+- **POST** `/generate/campaign` - Generate complete marketing campaign
+
+### System
+- **GET** `/` - API information
+- **GET** `/health` - Health check
+- **GET** `/docs` - Interactive API documentation (Swagger UI)
 
 
 
