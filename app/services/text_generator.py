@@ -14,8 +14,71 @@ logger = logging.getLogger(__name__)
 # Initialize Groq client
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
+def generate_blog_post(
+    campaign_brief: str, 
+    word_count: int = 500,
+    tone: str = "professional"
+) -> str:
+    """
+    Generate a professional blog post with customizable tone
+    
+    Args:
+        campaign_brief: Topic/product to write about
+        word_count: Target word count
+        tone: Writing tone (professional, casual, funny, formal, persuasive)
+    """
+    
+    # Tone-specific instructions
+    tone_instructions = {
+        "professional": "Use clear, authoritative language. Be informative and credible.",
+        "casual": "Use friendly, conversational language. Write like talking to a friend.",
+        "funny": "Use humor, wit, and entertaining language. Make it enjoyable to read.",
+        "formal": "Use sophisticated, academic language. Be precise and scholarly.",
+        "persuasive": "Use compelling arguments and emotional appeals. Focus on benefits and action."
+    }
+    
+    tone_guide = tone_instructions.get(tone, tone_instructions["professional"])
+    
+    prompt = f"""You are an expert content writer.
 
-def generate_blog_post(campaign_brief: str, word_count: int = 500) -> str:
+Write a {tone} blog post about: {campaign_brief}
+
+REQUIREMENTS:
+- Target word count: {word_count} words
+- Tone: {tone} - {tone_guide}
+- Include an engaging headline
+- Write in clear paragraphs
+- Include a strong conclusion with call-to-action
+- Be informative and valuable to readers
+
+Write the complete blog post now:"""
+    
+    try:
+        logger.info(f"Generating {tone} blog post: {campaign_brief}")
+        
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": f"You are a {tone} content writer. {tone_guide}"
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            model="llama-3.3-70b-versatile",
+            temperature=0.7,
+            max_tokens=word_count * 2
+        )
+        
+        result = chat_completion.choices[0].message.content
+        logger.info(f"Blog post generated successfully ({tone} tone)")
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error generating blog post: {str(e)}")
+        return f"Error: {str(e)}"
     """Generate a professional blog post using Groq"""
     
     prompt = f"""You are a professional marketing copywriter.
@@ -147,7 +210,51 @@ Write the caption now:"""
 
 
 
-def generate_linkedin_post(campaign_brief: str) -> str:
+def generate_linkedin_post(campaign_brief: str, tone: str = "professional") -> str:
+    """Generate professional LinkedIn post with tone control"""
+    
+    tone_instructions = {
+        "professional": "authoritative and credible",
+        "casual": "friendly and approachable",
+        "inspirational": "motivating and uplifting",
+        "thought_leadership": "insightful and forward-thinking"
+    }
+    
+    tone_desc = tone_instructions.get(tone, "professional and engaging")
+    
+    prompt = f"""You are a LinkedIn content expert.
+
+Create a {tone_desc} LinkedIn post about: {campaign_brief}
+
+Requirements:
+- 150-300 words
+- {tone.capitalize()} tone
+- Industry insights
+- Include call-to-action
+- 3-5 relevant hashtags at the end
+
+Write the LinkedIn post now:"""
+    
+    try:
+        logger.info(f"Generating {tone} LinkedIn post...")
+        
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": f"You are a LinkedIn expert. Write in a {tone_desc} style."},
+                {"role": "user", "content": prompt}
+            ],
+            model="llama-3.3-70b-versatile",
+            temperature=0.7,
+            max_tokens=600
+        )
+        
+        result = chat_completion.choices[0].message.content
+        logger.info(f"LinkedIn post generated")
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error: {str(e)}")
+        return f"Error: {str(e)}"
     """Generate professional LinkedIn post"""
     
     prompt = f"""You are a LinkedIn marketing expert.

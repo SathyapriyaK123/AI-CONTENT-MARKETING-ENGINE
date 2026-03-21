@@ -87,6 +87,38 @@ def create_blog(request: CampaignRequest):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+@app.post("/generate/blog")
+def create_blog(request: CampaignRequest, tone: str = "professional"):
+    """
+    Generate a professional blog post (synchronous)
+    
+    - **tone**: professional, casual, funny, formal, persuasive
+    """
+    try:
+        # Validate tone
+        valid_tones = ["professional", "casual", "funny", "formal", "persuasive"]
+        if tone not in valid_tones:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid tone. Choose from: {', '.join(valid_tones)}"
+            )
+        
+        blog_post = generate_blog_post(
+            campaign_brief=request.campaign_brief,
+            word_count=request.word_count,
+            tone=tone
+        )
+        
+        return {
+            "success": True,
+            "campaign_brief": request.campaign_brief,
+            "word_count": request.word_count,
+            "tone": tone,
+            "blog_post": blog_post,
+            "actual_word_count": len(blog_post.split())
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/generate/tweets")
@@ -133,6 +165,32 @@ def create_linkedin_post(campaign_brief: str):
         return {
             "success": True,
             "campaign_brief": campaign_brief,
+            "linkedin_post": post,
+            "word_count": len(post.split())
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+@app.post("/generate/linkedin")
+def create_linkedin_post(campaign_brief: str, tone: str = "professional"):
+    """
+    Generate professional LinkedIn post (synchronous)
+    
+    - **tone**: professional, casual, inspirational, thought_leadership
+    """
+    try:
+        valid_tones = ["professional", "casual", "inspirational", "thought_leadership"]
+        if tone not in valid_tones:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid tone. Choose from: {', '.join(valid_tones)}"
+            )
+        
+        post = generate_linkedin_post(campaign_brief, tone)
+        
+        return {
+            "success": True,
+            "campaign_brief": campaign_brief,
+            "tone": tone,
             "linkedin_post": post,
             "word_count": len(post.split())
         }
