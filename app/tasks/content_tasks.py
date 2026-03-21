@@ -1,4 +1,5 @@
 """
+from app.tasks.progress_tracker import ProgressTracker
 Celery background tasks for content generation
 """
 from app.celery_app import celery_app
@@ -11,7 +12,7 @@ from app.services.text_generator import (
     generate_product_description
 )
 import logging
-
+from app.tasks.progress_tracker import ProgressTracker
 logger = logging.getLogger(__name__)
 
 
@@ -153,6 +154,97 @@ def generate_parallel_campaign_task(self, campaign_brief: str, word_count: int =
         }
     except Exception as e:
         logger.error(f"Error in parallel campaign task: {str(e)}")
+        return {
+            'status': 'FAILED',
+            'error': str(e)
+        }
+
+@celery_app.task(bind=True, name='generate_blog_with_progress')
+def generate_blog_with_progress(self, campaign_brief: str, word_count: int = 500):
+    """Blog generation with detailed progress tracking"""
+    tracker = ProgressTracker(self, total_steps=5)
+    
+    try:
+        tracker.update("Initializing blog generation...")
+        logger.info(f"Starting blog generation with progress tracking")
+        
+        tracker.update("Analyzing campaign brief...")
+        # Simulate analysis time
+        import time
+        time.sleep(1)
+        
+        tracker.update("Crafting blog outline...")
+        time.sleep(1)
+        
+        tracker.update("Generating blog content with AI...")
+        blog = generate_blog_post(campaign_brief, word_count)
+        
+        tracker.update("Finalizing and formatting blog post...")
+        time.sleep(0.5)
+        
+        logger.info(f"Blog generation completed with progress")
+        return {
+            'status': 'SUCCESS',
+            'campaign_brief': campaign_brief,
+            'blog_post': blog,
+            'word_count': len(blog.split())
+        }
+    except Exception as e:
+        logger.error(f"Error in blog task: {str(e)}")
+        return {
+            'status': 'FAILED',
+            'error': str(e)
+        }
+
+
+@celery_app.task(bind=True, name='generate_full_campaign_with_progress')
+def generate_full_campaign_with_progress(self, campaign_brief: str, word_count: int = 500):
+    """Full campaign generation with detailed progress updates"""
+    tracker = ProgressTracker(self, total_steps=10)
+    
+    try:
+        tracker.update("Starting campaign generation...")
+        
+        tracker.update("Step 1/4: Generating blog post...")
+        blog = generate_blog_post(campaign_brief, word_count)
+        
+        tracker.update("Blog post complete! Moving to tweets...")
+        
+        tracker.update("Step 2/4: Generating tweet variants...")
+        tweets = generate_tweets(campaign_brief, 3)
+        
+        tracker.update("Tweets complete! Creating Instagram content...")
+        
+        tracker.update("Step 3/4: Generating Instagram caption...")
+        instagram = generate_instagram_caption(campaign_brief)
+        
+        tracker.update("Instagram complete! Crafting LinkedIn post...")
+        
+        tracker.update("Step 4/4: Generating LinkedIn post...")
+        linkedin = generate_linkedin_post(campaign_brief)
+        
+        tracker.update("LinkedIn complete! Assembling final campaign...")
+        
+        tracker.update("Campaign generation complete! ✅")
+        
+        logger.info(f"Full campaign with progress completed")
+        return {
+            'status': 'SUCCESS',
+            'campaign_brief': campaign_brief,
+            'content': {
+                'blog_post': blog,
+                'tweets': tweets,
+                'instagram_caption': instagram,
+                'linkedin_post': linkedin
+            },
+            'summary': {
+                'total_pieces': 4,
+                'blog_words': len(blog.split()),
+                'tweet_count': len(tweets)
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error in campaign task: {str(e)}")
         return {
             'status': 'FAILED',
             'error': str(e)

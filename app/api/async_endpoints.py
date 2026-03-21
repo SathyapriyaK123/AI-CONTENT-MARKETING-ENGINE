@@ -7,7 +7,9 @@ from app.tasks.content_tasks import (
     generate_blog_task,
     generate_tweets_task,
     generate_full_campaign_task,
-    generate_parallel_campaign_task
+    generate_parallel_campaign_task,
+    generate_blog_with_progress,
+    generate_full_campaign_with_progress
 )
 from celery.result import AsyncResult
 from app.celery_app import celery_app
@@ -132,4 +134,37 @@ def async_generate_campaign_parallel(request: CampaignRequest):
         "status": "PROCESSING",
         "message": "Parallel campaign generation started. This is 50% faster! Check /async/status/{task_id}",
         "estimated_time": "15-20 seconds (vs 30-40 sequential)"
+    }
+
+
+@router.post("/generate/blog-with-progress")
+def async_generate_blog_with_progress(request: CampaignRequest):
+    """
+    Generate blog with detailed real-time progress updates
+    Poll /async/status/{task_id} to see progress percentage
+    """
+    task = generate_blog_with_progress.delay(request.campaign_brief, request.word_count)
+    
+    return {
+        "task_id": task.id,
+        "status": "PROCESSING",
+        "message": "Blog generation started with progress tracking",
+        "tip": "Poll /async/status/{task_id} every 2 seconds to see real-time progress!"
+    }
+
+
+@router.post("/generate/campaign-with-progress")
+def async_generate_campaign_with_progress(request: CampaignRequest):
+    """
+    Generate full campaign with detailed step-by-step progress
+    See exactly which content is being generated in real-time
+    """
+    task = generate_full_campaign_with_progress.delay(request.campaign_brief, request.word_count)
+    
+    return {
+        "task_id": task.id,
+        "status": "PROCESSING",
+        "message": "Campaign generation started with detailed progress tracking",
+        "estimated_steps": 10,
+        "tip": "Check /async/status/{task_id} to see current step and progress %"
     }
