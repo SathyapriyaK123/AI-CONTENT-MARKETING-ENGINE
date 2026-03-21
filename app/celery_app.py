@@ -26,4 +26,18 @@ celery_app.conf.update(
 )
 
 # Optional: Task result expiration (1 hour)
-celery_app.conf.result_expires = 3600
+# Auto-cleanup: Task results expire after 1 hour
+celery_app.conf.result_expires = 3600  # 1 hour in seconds
+celery_app.conf.result_backend_transport_options = {
+    'master_name': 'mymaster',
+    'visibility_timeout': 3600,
+}
+
+
+# Periodic cleanup task configuration
+celery_app.conf.beat_schedule = {
+    'cleanup-expired-results': {
+        'task': 'app.tasks.cleanup_tasks.cleanup_expired_results',
+        'schedule': 3600.0,  # Run every hour
+    },
+}

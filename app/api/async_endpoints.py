@@ -1,6 +1,7 @@
 """
 Async API endpoints that use Celery background tasks
 """
+from app.tasks.cleanup_tasks import get_task_info, cancel_task
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from app.tasks.content_tasks import (
@@ -168,3 +169,25 @@ def async_generate_campaign_with_progress(request: CampaignRequest):
         "estimated_steps": 10,
         "tip": "Check /async/status/{task_id} to see current step and progress %"
     }
+
+
+@router.delete("/cancel/{task_id}")
+def cancel_running_task(task_id: str):
+    """
+    Cancel a running task
+    Useful if user wants to stop generation
+    """
+    result = cancel_task(task_id)
+    
+    if result['status'] == 'SUCCESS':
+        return result
+    else:
+        raise HTTPException(status_code=500, detail=result['error'])
+
+
+@router.get("/info/{task_id}")
+def get_task_information(task_id: str):
+    """
+    Get detailed information about a task
+    """
+    return get_task_info(task_id)
