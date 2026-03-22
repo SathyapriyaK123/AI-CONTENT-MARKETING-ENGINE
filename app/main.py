@@ -7,9 +7,10 @@ from app.services.text_generator import (
     generate_instagram_caption,
     generate_linkedin_post,
     generate_email_marketing,
-    generate_product_description
+    generate_product_description,
+    generate_industry_blog
 )
-from app.api.async_endpoints import router as async_router
+from app.services.content_templates import get_available_industries, validate_industryfrom app.api.async_endpoints import router as async_router
 
 # Validate configuration on startup
 settings.validate()
@@ -256,6 +257,64 @@ def create_full_campaign(request: CampaignRequest):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+@app.post("/generate/industry-blog")
+def create_industry_blog(
+    request: CampaignRequest,
+    industry: str,
+    tone: str = "professional"
+):
+    """
+    Generate blog post optimized for specific industry
+    
+    - **industry**: tech, fashion, health, food, finance, education, ecommerce, real_estate
+    - **tone**: professional, casual, funny, formal, persuasive
+    """
+    try:
+        # Validate industry
+        if not validate_industry(industry):
+            available = get_available_industries()
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid industry. Choose from: {', '.join(available)}"
+            )
+        
+        # Validate tone
+        valid_tones = ["professional", "casual", "funny", "formal", "persuasive"]
+        if tone not in valid_tones:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid tone. Choose from: {', '.join(valid_tones)}"
+            )
+        
+        blog_post = generate_industry_blog(
+            campaign_brief=request.campaign_brief,
+            industry=industry,
+            word_count=request.word_count,
+            tone=tone
+        )
+        
+        return {
+            "success": True,
+            "campaign_brief": request.campaign_brief,
+            "industry": industry,
+            "tone": tone,
+            "word_count": request.word_count,
+            "blog_post": blog_post,
+            "actual_word_count": len(blog_post.split())
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/industries")
+def list_industries():
+    """Get list of available industry templates"""
+    industries = get_available_industries()
+    return {
+        "success": True,
+        "count": len(industries),
+        "industries": industries
+    }
 
 
 if __name__ == "__main__":

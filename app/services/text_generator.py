@@ -2,6 +2,7 @@
 Text generation service using Groq (FREE & SUPER FAST!)
 """
 import os
+from app.services.content_templates import get_industry_prompt_enhancement, validate_industry
 from groq import Groq
 from dotenv import load_dotenv
 import logging
@@ -370,3 +371,75 @@ Write the product description:"""
     except Exception as e:
         logger.error(f"Error: {str(e)}")
         return f"Error generating product description: {str(e)}"
+
+def generate_industry_blog(
+    campaign_brief: str,
+    industry: str,
+    word_count: int = 500,
+    tone: str = "professional"
+) -> str:
+    """
+    Generate blog post optimized for specific industry
+    
+    Args:
+        campaign_brief: Topic to write about
+        industry: Industry category (tech, fashion, health, etc.)
+        word_count: Target word count
+        tone: Writing tone
+    """
+    
+    # Get industry-specific enhancements
+    industry_enhancement = get_industry_prompt_enhancement(industry)
+    
+    tone_instructions = {
+        "professional": "clear, authoritative language",
+        "casual": "friendly, conversational language",
+        "funny": "humor and wit",
+        "formal": "sophisticated, academic language",
+        "persuasive": "compelling arguments and benefits"
+    }
+    
+    tone_guide = tone_instructions.get(tone, "professional and engaging")
+    
+    prompt = f"""You are an expert content writer specializing in the {industry} industry.
+
+{industry_enhancement}
+
+Write a {tone} blog post about: {campaign_brief}
+
+REQUIREMENTS:
+- Target word count: {word_count} words
+- Tone: {tone_guide}
+- Industry: {industry}
+- Include engaging headline
+- Use industry-appropriate language and keywords
+- Include strong conclusion with call-to-action
+
+Write the complete blog post now:"""
+    
+    try:
+        logger.info(f"Generating {industry} industry blog ({tone} tone)")
+        
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": f"You are a {industry} industry content expert. Use {tone_guide}."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            model="llama-3.3-70b-versatile",
+            temperature=0.7,
+            max_tokens=word_count * 2
+        )
+        
+        result = chat_completion.choices[0].message.content
+        logger.info(f"Industry blog generated successfully")
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error: {str(e)}")
+        return f"Error: {str(e)}"
