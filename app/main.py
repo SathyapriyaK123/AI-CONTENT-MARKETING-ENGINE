@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from app.services.content_quality import analyze_content_quality
 from pydantic import BaseModel
 from app.config import settings
 from app.services.text_generator import (
@@ -315,7 +316,21 @@ def list_industries():
         "count": len(industries),
         "industries": industries
     }
-
+@app.post("/analyze/quality")
+def analyze_quality(text: str, target_word_count: int = None):
+    """
+    Analyze content quality
+    Returns readability score, word count validation, and metrics
+    """
+    try:
+        analysis = analyze_content_quality(text, target_word_count)
+        
+        return {
+            "success": True,
+            "analysis": analysis
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     import uvicorn
