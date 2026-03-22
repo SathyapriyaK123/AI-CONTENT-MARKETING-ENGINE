@@ -1,3 +1,5 @@
+from app.services.seo_generator import generate_seo_package
+from app.services.content_quality import extract_keywords, extract_hashtags
 from fastapi import FastAPI, HTTPException
 from app.services.content_quality import analyze_content_quality
 from pydantic import BaseModel
@@ -335,3 +337,33 @@ def analyze_quality(text: str, target_word_count: int = None):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+@app.post("/generate/seo")
+def generate_seo_metadata(text: str, campaign_brief: str):
+    """
+    Generate SEO metadata package
+    Returns title tag, meta description, keywords, URL slug
+    """
+    try:
+        seo = generate_seo_package(text, campaign_brief)
+        return {
+            "success": True,
+            "seo": seo
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/extract/keywords")
+def get_keywords(text: str, max_keywords: int = 10):
+    """Extract important keywords from text"""
+    try:
+        keywords = extract_keywords(text, max_keywords)
+        hashtags = extract_hashtags(text, 5)
+        
+        return {
+            "success": True,
+            "keywords": keywords,
+            "hashtags": hashtags
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
