@@ -130,3 +130,49 @@ def analyze_content_quality(text: str, target_word_count: int = None) -> Dict:
         analysis["word_count_validation"] = validate_word_count(text, target_word_count)
     
     return analysis
+
+def extract_keywords(text: str, max_keywords: int = 10) -> list:
+    """
+    Extract important keywords from text
+    Simple frequency-based extraction
+    """
+    # Common stop words to ignore
+    stop_words = {
+        'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+        'of', 'with', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 'has',
+        'had', 'do', 'does', 'did', 'will', 'would', 'should', 'could', 'may',
+        'might', 'can', 'this', 'that', 'these', 'those', 'i', 'you', 'he',
+        'she', 'it', 'we', 'they', 'what', 'which', 'who', 'when', 'where',
+        'why', 'how', 'from', 'as', 'by', 'about', 'into', 'through', 'during'
+    }
+    
+    # Clean and tokenize
+    words = re.findall(r'\b[a-z]{3,}\b', text.lower())
+    
+    # Filter stop words and count frequency
+    word_freq = {}
+    for word in words:
+        if word not in stop_words:
+            word_freq[word] = word_freq.get(word, 0) + 1
+    
+    # Sort by frequency and return top keywords
+    sorted_words = sorted(word_freq.items(), key=lambda x: x[1], reverse=True)
+    keywords = [word for word, freq in sorted_words[:max_keywords]]
+    
+    return keywords
+
+
+def extract_hashtags(text: str, max_hashtags: int = 5) -> list:
+    """
+    Generate hashtags from keywords
+    """
+    keywords = extract_keywords(text, max_hashtags * 2)
+    
+    # Convert to hashtags
+    hashtags = []
+    for keyword in keywords[:max_hashtags]:
+        # Clean and format
+        hashtag = '#' + keyword.capitalize()
+        hashtags.append(hashtag)
+    
+    return hashtags
