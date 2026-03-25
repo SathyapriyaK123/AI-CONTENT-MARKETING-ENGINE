@@ -19,6 +19,8 @@ from app.services.content_templates import get_available_industries, validate_in
 settings.validate()
 
 app = FastAPI(
+# Serve frontend
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     debug=settings.DEBUG,
