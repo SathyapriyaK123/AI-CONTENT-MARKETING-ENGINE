@@ -1,6 +1,7 @@
 """
 General helper utilities
 """
+
 import re
 from datetime import datetime
 from typing import List, Dict
@@ -9,7 +10,7 @@ from typing import List, Dict
 def clean_text(text: str) -> str:
     """Clean and normalize text"""
     # Remove extra whitespace
-    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r"\s+", " ", text)
     # Remove leading/trailing whitespace
     text = text.strip()
     return text
@@ -19,7 +20,7 @@ def truncate_text(text: str, max_length: int = 100, suffix: str = "...") -> str:
     """Truncate text to maximum length"""
     if len(text) <= max_length:
         return text
-    return text[:max_length - len(suffix)] + suffix
+    return text[: max_length - len(suffix)] + suffix
 
 
 def format_timestamp(timestamp: datetime = None) -> str:
@@ -31,7 +32,7 @@ def format_timestamp(timestamp: datetime = None) -> str:
 
 def split_into_sentences(text: str) -> List[str]:
     """Split text into sentences"""
-    sentences = re.split(r'[.!?]+', text)
+    sentences = re.split(r"[.!?]+", text)
     return [s.strip() for s in sentences if s.strip()]
 
 
@@ -44,7 +45,7 @@ def calculate_reading_time(text: str, words_per_minute: int = 200) -> int:
 
 def extract_urls(text: str) -> List[str]:
     """Extract URLs from text"""
-    url_pattern = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    url_pattern = r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+"
     urls = re.findall(url_pattern, text)
     return urls
 
@@ -52,9 +53,9 @@ def extract_urls(text: str) -> List[str]:
 def sanitize_filename(filename: str) -> str:
     """Sanitize filename for safe filesystem usage"""
     # Remove invalid characters
-    filename = re.sub(r'[<>:"/\\|?*]', '', filename)
+    filename = re.sub(r'[<>:"/\\|?*]', "", filename)
     # Replace spaces with underscores
-    filename = filename.replace(' ', '_')
+    filename = filename.replace(" ", "_")
     # Limit length
     filename = filename[:255]
     return filename
@@ -72,7 +73,7 @@ def chunk_list(items: List, chunk_size: int) -> List[List]:
     """Split list into chunks"""
     chunks = []
     for i in range(0, len(items), chunk_size):
-        chunks.append(items[i:i + chunk_size])
+        chunks.append(items[i : i + chunk_size])
     return chunks
 
 

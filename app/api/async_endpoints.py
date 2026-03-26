@@ -1,6 +1,7 @@
 """
 Async API endpoints that use Celery background tasks
 """
+
 from app.tasks.cleanup_tasks import get_task_info, cancel_task
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -10,7 +11,7 @@ from app.tasks.content_tasks import (
     generate_full_campaign_task,
     generate_parallel_campaign_task,
     generate_blog_with_progress,
-    generate_full_campaign_with_progress
+    generate_full_campaign_with_progress,
 )
 from celery.result import AsyncResult
 from app.celery_app import celery_app
@@ -35,11 +36,11 @@ def async_generate_blog(request: CampaignRequest):
     Returns task_id immediately, generation happens in background
     """
     task = generate_blog_task.delay(request.campaign_brief, request.word_count)
-    
+
     return {
         "task_id": task.id,
         "status": "PROCESSING",
-        "message": "Blog generation started. Use /async/status/{task_id} to check progress"
+        "message": "Blog generation started. Use /async/status/{task_id} to check progress",
     }
 
 
@@ -47,11 +48,11 @@ def async_generate_blog(request: CampaignRequest):
 def async_generate_tweets(request: TweetRequest):
     """Generate tweets asynchronously"""
     task = generate_tweets_task.delay(request.campaign_brief, request.count)
-    
+
     return {
         "task_id": task.id,
         "status": "PROCESSING",
-        "message": "Tweet generation started"
+        "message": "Tweet generation started",
     }
 
 
@@ -59,11 +60,11 @@ def async_generate_tweets(request: TweetRequest):
 def async_generate_campaign(request: CampaignRequest):
     """Generate full campaign asynchronously"""
     task = generate_full_campaign_task.delay(request.campaign_brief, request.word_count)
-    
+
     return {
         "task_id": task.id,
         "status": "PROCESSING",
-        "message": "Campaign generation started. This may take 30-60 seconds."
+        "message": "Campaign generation started. This may take 30-60 seconds.",
     }
 
 
@@ -73,38 +74,35 @@ def get_task_status(task_id: str):
     Check status of async task
     """
     task_result = AsyncResult(task_id, app=celery_app)
-    
-    if task_result.state == 'PENDING':
+
+    if task_result.state == "PENDING":
         response = {
-            'task_id': task_id,
-            'status': 'PENDING',
-            'message': 'Task is waiting to be processed'
+            "task_id": task_id,
+            "status": "PENDING",
+            "message": "Task is waiting to be processed",
         }
-    elif task_result.state == 'PROCESSING':
+    elif task_result.state == "PROCESSING":
         response = {
-            'task_id': task_id,
-            'status': 'PROCESSING',
-            'message': 'Task is being processed',
-            'progress': task_result.info.get('status', '')
+            "task_id": task_id,
+            "status": "PROCESSING",
+            "message": "Task is being processed",
+            "progress": task_result.info.get("status", ""),
         }
-    elif task_result.state == 'SUCCESS':
+    elif task_result.state == "SUCCESS":
         response = {
-            'task_id': task_id,
-            'status': 'SUCCESS',
-            'result': task_result.result
+            "task_id": task_id,
+            "status": "SUCCESS",
+            "result": task_result.result,
         }
-    elif task_result.state == 'FAILURE':
+    elif task_result.state == "FAILURE":
         response = {
-            'task_id': task_id,
-            'status': 'FAILED',
-            'error': str(task_result.info)
+            "task_id": task_id,
+            "status": "FAILED",
+            "error": str(task_result.info),
         }
     else:
-        response = {
-            'task_id': task_id,
-            'status': task_result.state
-        }
-    
+        response = {"task_id": task_id, "status": task_result.state}
+
     return response
 
 
@@ -112,13 +110,13 @@ def get_task_status(task_id: str):
 def get_task_result(task_id: str):
     """Get final result of completed task"""
     task_result = AsyncResult(task_id, app=celery_app)
-    
-    if task_result.state != 'SUCCESS':
+
+    if task_result.state != "SUCCESS":
         raise HTTPException(
             status_code=400,
-            detail=f"Task not completed yet. Current status: {task_result.state}"
+            detail=f"Task not completed yet. Current status: {task_result.state}",
         )
-    
+
     return task_result.result
 
 
@@ -128,13 +126,15 @@ def async_generate_campaign_parallel(request: CampaignRequest):
     Generate full campaign with PARALLEL execution
     Much faster than sequential - generates all content simultaneously
     """
-    task = generate_parallel_campaign_task.delay(request.campaign_brief, request.word_count)
-    
+    task = generate_parallel_campaign_task.delay(
+        request.campaign_brief, request.word_count
+    )
+
     return {
         "task_id": task.id,
         "status": "PROCESSING",
         "message": "Parallel campaign generation started. This is 50% faster! Check /async/status/{task_id}",
-        "estimated_time": "15-20 seconds (vs 30-40 sequential)"
+        "estimated_time": "15-20 seconds (vs 30-40 sequential)",
     }
 
 
@@ -145,12 +145,12 @@ def async_generate_blog_with_progress(request: CampaignRequest):
     Poll /async/status/{task_id} to see progress percentage
     """
     task = generate_blog_with_progress.delay(request.campaign_brief, request.word_count)
-    
+
     return {
         "task_id": task.id,
         "status": "PROCESSING",
         "message": "Blog generation started with progress tracking",
-        "tip": "Poll /async/status/{task_id} every 2 seconds to see real-time progress!"
+        "tip": "Poll /async/status/{task_id} every 2 seconds to see real-time progress!",
     }
 
 
@@ -160,14 +160,16 @@ def async_generate_campaign_with_progress(request: CampaignRequest):
     Generate full campaign with detailed step-by-step progress
     See exactly which content is being generated in real-time
     """
-    task = generate_full_campaign_with_progress.delay(request.campaign_brief, request.word_count)
-    
+    task = generate_full_campaign_with_progress.delay(
+        request.campaign_brief, request.word_count
+    )
+
     return {
         "task_id": task.id,
         "status": "PROCESSING",
         "message": "Campaign generation started with detailed progress tracking",
         "estimated_steps": 10,
-        "tip": "Check /async/status/{task_id} to see current step and progress %"
+        "tip": "Check /async/status/{task_id} to see current step and progress %",
     }
 
 
@@ -178,11 +180,11 @@ def cancel_running_task(task_id: str):
     Useful if user wants to stop generation
     """
     result = cancel_task(task_id)
-    
-    if result['status'] == 'SUCCESS':
+
+    if result["status"] == "SUCCESS":
         return result
     else:
-        raise HTTPException(status_code=500, detail=result['error'])
+        raise HTTPException(status_code=500, detail=result["error"])
 
 
 @router.get("/info/{task_id}")

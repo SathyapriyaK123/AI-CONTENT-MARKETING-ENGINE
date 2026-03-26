@@ -13,8 +13,8 @@ from app.services.text_generator import (
     generate_product_description,
     generate_industry_blog
 )
-from app.services.content_templates import get_available_industries, validate_industryfrom app.api.async_endpoints import router as async_router
-
+from app.services.content_templates import get_available_industries, validate_industry
+from app.api.async_endpoints import router as async_router
 # Validate configuration on startup
 settings.validate()
 

@@ -1,6 +1,7 @@
 """
 Input validation utilities
 """
+
 from app.utils.error_messages import format_validation_error
 
 
@@ -16,11 +17,17 @@ def validate_word_count(word_count: int) -> dict:
 def validate_campaign_brief(brief: str) -> dict:
     """Validate campaign brief"""
     if not brief or not brief.strip():
-        return format_validation_error("campaign_brief", "Campaign brief cannot be empty")
+        return format_validation_error(
+            "campaign_brief", "Campaign brief cannot be empty"
+        )
     if len(brief) < 3:
-        return format_validation_error("campaign_brief", "Campaign brief too short (min 3 characters)")
+        return format_validation_error(
+            "campaign_brief", "Campaign brief too short (min 3 characters)"
+        )
     if len(brief) > 500:
-        return format_validation_error("campaign_brief", "Campaign brief too long (max 500 characters)")
+        return format_validation_error(
+            "campaign_brief", "Campaign brief too long (max 500 characters)"
+        )
     return {"valid": True}
 
 
@@ -28,8 +35,7 @@ def validate_tone(tone: str, valid_tones: list) -> dict:
     """Validate tone parameter"""
     if tone not in valid_tones:
         return format_validation_error(
-            "tone",
-            f"Invalid tone '{tone}'. Choose from: {', '.join(valid_tones)}"
+            "tone", f"Invalid tone '{tone}'. Choose from: {', '.join(valid_tones)}"
         )
     return {"valid": True}
 
@@ -39,7 +45,7 @@ def validate_industry(industry: str, valid_industries: list) -> dict:
     if industry not in valid_industries:
         return format_validation_error(
             "industry",
-            f"Invalid industry '{industry}'. Choose from: {', '.join(valid_industries)}"
+            f"Invalid industry '{industry}'. Choose from: {', '.join(valid_industries)}",
         )
     return {"valid": True}
 

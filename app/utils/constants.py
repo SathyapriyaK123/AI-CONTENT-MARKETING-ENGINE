@@ -36,7 +36,7 @@ CONTENT_TYPES = {
     "LINKEDIN": "linkedin_post",
     "EMAIL": "email_marketing",
     "PRODUCT": "product_description",
-    "CAMPAIGN": "full_campaign"
+    "CAMPAIGN": "full_campaign",
 }
 
 # Industry keywords mapping
@@ -48,7 +48,7 @@ INDUSTRY_KEYWORDS = {
     "finance": ["secure", "trusted", "investment", "returns", "growth", "reliable"],
     "education": ["learn", "expert", "certified", "comprehensive", "skills", "master"],
     "ecommerce": ["quality", "affordable", "fast shipping", "guarantee", "bestseller"],
-    "real_estate": ["prime", "luxury", "spacious", "modern", "investment", "location"]
+    "real_estate": ["prime", "luxury", "spacious", "modern", "investment", "location"],
 }
 
 # Tone descriptions
@@ -57,7 +57,7 @@ TONE_DESCRIPTIONS = {
     "casual": "Friendly, conversational, and approachable",
     "funny": "Humorous, witty, and entertaining",
     "formal": "Sophisticated, academic, and precise",
-    "persuasive": "Compelling, benefit-focused, and action-oriented"
+    "persuasive": "Compelling, benefit-focused, and action-oriented",
 }
 
 # HTTP status codes
