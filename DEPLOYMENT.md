@@ -22,8 +22,7 @@
 
 git clone https://github.com/SathyapriyaK123/AI-CONTENT-MARKETING-ENGINE.git
 
-cd AI-CONTENT-MARKETING-ENGINE
-
+cd Documents\AI-CONTENT-MARKETING-ENGINE
 ```
 
 
