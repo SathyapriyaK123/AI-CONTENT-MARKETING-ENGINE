@@ -1,7 +1,7 @@
 
 Example: Synchronous content generation
 Simple and immediate - waits for completion
-"""
+
 import requests
 
 BASE_URL = "http://localhost:8000"

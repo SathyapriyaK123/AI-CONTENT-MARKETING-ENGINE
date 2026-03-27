@@ -1,6 +1,6 @@
 
 Celery configuration for background task processing
-"""
+
 
 from celery import Celery
 from app.config import settings
