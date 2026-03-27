@@ -1,4 +1,4 @@
-"""
+
 Example: Synchronous content generation
 Simple and immediate - waits for completion
 """

@@ -1,4 +1,4 @@
-"""
+
 Example: Asynchronous content generation with progress tracking
 Non-blocking - returns immediately, check status later
 """

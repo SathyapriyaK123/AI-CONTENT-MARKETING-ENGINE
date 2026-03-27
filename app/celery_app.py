@@ -1,4 +1,4 @@
-"""
+
 Celery configuration for background task processing
 """
 

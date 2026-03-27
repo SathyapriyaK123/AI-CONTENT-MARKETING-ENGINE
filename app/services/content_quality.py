@@ -1,5 +1,4 @@
-"""
-"""
+
 Text generation services using Groq AI
 
 This module provides functions for generating various types of marketing content
