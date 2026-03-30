@@ -1,7 +1,3 @@
-"""
-Progress tracking utilities for Celery tasks
-"""
-
 import time
 from typing import Dict, List
 

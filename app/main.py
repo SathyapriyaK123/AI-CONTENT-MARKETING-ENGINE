@@ -13,19 +13,25 @@ from app.services.text_generator import (
     generate_product_description,
     generate_industry_blog
 )
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
 from app.services.content_templates import get_available_industries, validate_industry
 from app.api.async_endpoints import router as async_router
+from app.config import settings
+
 # Validate configuration on startup
 settings.validate()
 
 app = FastAPI(
-# Serve frontend
-app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     debug=settings.DEBUG,
     description="Multi-modal AI content marketing engine powered by Groq"
 )
+
+# Serve frontend
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 # Include async routes
 app.include_router(async_router)

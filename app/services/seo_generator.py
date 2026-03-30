@@ -1,21 +1,3 @@
-"""
-"""
-Text generation services using Groq AI
-
-This module provides functions for generating various types of marketing content
-including blog posts, tweets, social media captions, and more.
-
-Functions:
-    generate_blog_post: Create professional blog posts with tone control
-    generate_tweets: Generate multiple tweet variants
-    generate_instagram_caption: Create Instagram captions with hashtags
-    generate_linkedin_post: Professional LinkedIn content
-    generate_email_marketing: Email marketing copy
-    generate_product_description: Product descriptions
-    generate_industry_blog: Industry-specific blog posts
-"""
-SEO metadata generation
-"""
 from app.services.content_quality import extract_keywords
 
 
