@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Marketing Engine</title>
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Extends given CSS for a richer UX, specifically fonts and subtle effects */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, inherit;
+        }
+        
+        .header h1 {
+            letter-spacing: -0.5px;
+        }
+        
+        .tab {
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>AI Content Marketing Engine</h1>
+            <p class="tagline">Generate high-quality multi-modal content instantly</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="blog">📝 Blog Post</button>
+            <button class="tab" data-tab="tweets">🐦 Tweets</button>
+            <button class="tab" data-tab="campaign">🚀 Full Campaign</button>
+            <button class="tab" data-tab="seo">🔍 SEO & Quality</button>
+        </nav>
+
+        <!-- Blog Generator Section -->
+        <section id="blog-section" class="content-section active">
+            <h2>Generate a Professional Blog Post</h2>
+            <form id="blog-form" class="generator-form">
+                <div class="form-group">
+                    <label for="blog-brief">Campaign Brief</label>
+                    <textarea id="blog-brief" rows="4" required placeholder="Describe the topic, target audience, and key takeaways..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="blog-words">Target Word Count</label>
+                        <input type="number" id="blog-words" value="500" min="100" max="3000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="blog-tone">Writing Tone</label>
+                        <select id="blog-tone" required>
+                            <option value="professional">Professional</option>
+                            <option value="casual">Casual</option>
+                            <option value="funny">Funny</option>
+                            <option value="formal">Formal</option>
+                            <option value="persuasive">Persuasive</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="btn-text">Generate Blog Post</span>
+                    <span class="loader" style="display: none;"></span>
+                </button>
+            </form>
+            
+            <div id="blog-result" class="result-container" style="display: none;">
+                <h3>✨ Generated Blog Post</h3>
+                <div class="result-content"></div>
+                <div class="result-meta"></div>
+            </div>
+        </section>
+
+        <!-- Tweets Generator Section -->
+        <section id="tweets-section" class="content-section">
+            <h2>Generate Engaging Tweets</h2>
+            <form id="tweets-form" class="generator-form">
+                <div class="form-group">
+                    <label for="tweets-brief">Campaign Brief / Topic</label>
+                    <textarea id="tweets-brief" rows="4" required placeholder="What should the tweets be about?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tweets-count">Number of Tweets</label>
+                    <input type="number" id="tweets-count" value="3" min="1" max="10" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="btn-text">Generate Tweets</span>
+                    <span class="loader" style="display: none;"></span>
+                </button>
+            </form>
+            
+            <div id="tweets-result" class="result-container" style="display: none;">
+                <h3>✨ Generated Tweets</h3>
+                <div class="result-content"></div>
+            </div>
+        </section>
+
+        <!-- Full Campaign Section -->
+        <section id="campaign-section" class="content-section">
+            <h2>Generate a Complete Marketing Campaign</h2>
+            <form id="campaign-form" class="generator-form">
+                <div class="form-group">
+                    <label for="campaign-brief">Central Campaign Brief</label>
+                    <textarea id="campaign-brief" rows="4" required placeholder="Describe the product launch or marketing objective..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="campaign-words">Blog Word Count</label>
+                    <input type="number" id="campaign-words" value="500" min="100" max="3000" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="btn-text">Generate Full Campaign</span>
+                    <span class="loader" style="display: none;"></span>
+                </button>
+            </form>
+
+            <div id="campaign-progress" class="progress-container" style="display: none;">
+                <p>Generating a full campaign in the background...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-text">0% - Processing...</div>
+            </div>
+            
+            <div id="campaign-result" class="result-container" style="display: none;">
+                <h3>✨ Campaign Assets</h3>
+                <div class="result-content"></div>
+            </div>
+        </section>
+
+        <!-- SEO Metadata & Analysis Section -->
+        <section id="seo-section" class="content-section">
+            <h2>Analyze Quality & Generate SEO Data</h2>
+            <form id="seo-form" class="generator-form">
+                <div class="form-group">
+                    <label for="seo-brief">Campaign Brief</label>
+                    <input type="text" id="seo-brief" required placeholder="General topic or focus required for metadata...">
+                </div>
+                <div class="form-group">
+                    <label for="seo-text">Content to Analyze</label>
+                    <textarea id="seo-text" rows="8" required placeholder="Paste your generated draft or existing article here..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="btn-text">Analyze Content & Extract SEO</span>
+                    <span class="loader" style="display: none;"></span>
+                </button>
+            </form>
+            
+            <div id="seo-result" class="result-container" style="display: none;">
+                <h3>✨ Results</h3>
+                <div class="result-content"></div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Powered by Groq</p>
+        </footer>
+    </div>
+
+    <!-- API and Application scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

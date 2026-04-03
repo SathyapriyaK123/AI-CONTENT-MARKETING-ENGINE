@@ -15,6 +15,7 @@ from app.services.text_generator import (
 )
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.services.content_templates import get_available_industries, validate_industry
 from app.api.async_endpoints import router as async_router
@@ -28,6 +29,15 @@ app = FastAPI(
     version=settings.VERSION,
     debug=settings.DEBUG,
     description="Multi-modal AI content marketing engine powered by Groq"
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Serve frontend
@@ -82,24 +92,6 @@ def health_check():
 
 # Synchronous content generation endpoints
 @app.post("/generate/blog")
-def create_blog(request: CampaignRequest):
-    """Generate a professional blog post (synchronous)"""
-    try:
-        blog_post = generate_blog_post(
-            campaign_brief=request.campaign_brief,
-            word_count=request.word_count
-        )
-        
-        return {
-            "success": True,
-            "campaign_brief": request.campaign_brief,
-            "word_count": request.word_count,
-            "blog_post": blog_post,
-            "actual_word_count": len(blog_post.split())
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-@app.post("/generate/blog")
 def create_blog(request: CampaignRequest, tone: str = "professional"):
     """
     Generate a professional blog post (synchronous)
@@ -129,6 +121,8 @@ def create_blog(request: CampaignRequest, tone: str = "professional"):
             "blog_post": blog_post,
             "actual_word_count": len(blog_post.split())
         }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -169,20 +163,6 @@ def create_instagram_caption(campaign_brief: str):
 
 
 @app.post("/generate/linkedin")
-def create_linkedin_post(campaign_brief: str):
-    """Generate professional LinkedIn post (synchronous)"""
-    try:
-        post = generate_linkedin_post(campaign_brief)
-        
-        return {
-            "success": True,
-            "campaign_brief": campaign_brief,
-            "linkedin_post": post,
-            "word_count": len(post.split())
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-@app.post("/generate/linkedin")
 def create_linkedin_post(campaign_brief: str, tone: str = "professional"):
     """
     Generate professional LinkedIn post (synchronous)
@@ -206,6 +186,8 @@ def create_linkedin_post(campaign_brief: str, tone: str = "professional"):
             "linkedin_post": post,
             "word_count": len(post.split())
         }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -313,6 +295,8 @@ def create_industry_blog(
             "blog_post": blog_post,
             "actual_word_count": len(blog_post.split())
         }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

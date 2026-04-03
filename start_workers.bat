@@ -5,8 +5,7 @@ echo.
 cd /d "%~dp0"
 
 echo [1/2] Starting Celery Worker...
-start "Celery Worker" cmd /k "venv\Scripts\activate && celery -A app.celery_app worker --loglevel=info --pool=solo"
-
+start "Celery Worker" cmd /k "venv\Scripts\activate && python -m celery -A app.celery_app worker --loglevel=info --pool=solo"
 timeout /t 3 /nobreak >nul
 
 echo [2/2] Starting FastAPI Server...
