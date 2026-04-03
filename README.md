@@ -273,7 +273,7 @@ copy .env.example .env
 
 5. **Start the servers**
 ```bash
-start_workers.bat  # Starts both Celery and FastAPI
+.\start_workers.bat # Starts both Celery and FastAPI
 ```
 
 6. **Access the API**
