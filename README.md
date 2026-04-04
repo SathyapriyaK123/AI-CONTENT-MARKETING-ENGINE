@@ -87,17 +87,10 @@ venv\\Scripts\\activate
 ```bash
 pip install -r requirements.txt
 ```
-
-
-
-4\. Configure environment variables:
-
+4 Configure environment variables:
 ```bash
-
 copy .env.example .env
-
 \# Edit .env and add your OPENAI\_API\_KEY
-
 ```
 
 
