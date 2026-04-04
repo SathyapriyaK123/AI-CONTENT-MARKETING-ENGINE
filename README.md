@@ -111,17 +111,13 @@ Visit: http://localhost:8000
  **POST** `/generate/product-description` - Generate product descriptions
  **POST** `/generate/campaign` - Generate complete marketing campaign
 
-### System
-- **GET** `/` - API information
-- **GET** `/health` - Health check
-- **GET** `/docs` - Interactive API documentation (Swagger UI)
-
-
+# System
+**GET** `/` - API information
+ **GET** `/health` - Health check
+ **GET** `/docs` - Interactive API documentation (Swagger UI)
 
 Once running, visit:
-
 \- Swagger UI: http://localhost:8000/docs
-
 \- ReDoc: http://localhost:8000/redoc
 
 
