@@ -10,15 +10,10 @@
 
 # Commit Message Format
 \- `feat:` New feature
-
 \- `fix:` Bug fix
-
 \- `docs:` Documentation
-
 \- `refactor:` Code refactoring
-
 \- `test:` Add tests
-
 \- `chore:` Maintenance
 
 
