@@ -19,14 +19,14 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 
 #  Features
 # Content Generation (7+ Types)
-- ✅ Blog posts with tone control (professional, casual, funny, formal, persuasive)
-- ✅ Industry-optimized blogs (tech, fashion, health, food, finance, education, ecommerce, real estate)
-- ✅ Twitter/X posts (multiple variants)
-- ✅ Instagram captions with hashtags
-- ✅ LinkedIn posts with tone options
-- ✅ Email marketing copy (promotional, welcome, newsletter)
-- ✅ Product descriptions (benefit-focused)
-- ✅ Full marketing campaigns
+-  Blog posts with tone control (professional, casual, funny, formal, persuasive)
+-  Industry-optimized blogs (tech, fashion, health, food, finance, education, ecommerce, real estate)
+-  Twitter/X posts (multiple variants)
+-  Instagram captions with hashtags
+-  LinkedIn posts with tone options
+-  Email marketing copy (promotional, welcome, newsletter)
+-  Product descriptions (benefit-focused)
+-  Full marketing campaigns
 
 ### ⚡ Advanced Features
 - ✅ **Parallel execution** - 50% faster campaign generation
