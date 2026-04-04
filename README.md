@@ -17,9 +17,7 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 - RESTful API design with FastAPI
 - Background job processing with Celery + Redis
 
-
-
-## 📋 Features
+#  Features
 
 ### 🎨 Content Generation (7+ Types)
 - ✅ Blog posts with tone control (professional, casual, funny, formal, persuasive)
