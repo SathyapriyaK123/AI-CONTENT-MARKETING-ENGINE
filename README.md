@@ -74,11 +74,6 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 - ✅ Sentence analysis
 - ✅ Keyword density
 
-### 🔜 Coming Soon
-- ⏳ Image generation (Week 3)
-- ⏳ HTML/React frontend (Week 4)
-- ⏳ Batch processing
-- ⏳ Content history & analytics
 \## 🛠️ Tech Stack
 
 
