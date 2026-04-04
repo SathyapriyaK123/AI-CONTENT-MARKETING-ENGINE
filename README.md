@@ -12,7 +12,7 @@ A multi-modal AI-powered content marketing engine that generates cohesive market
 
 
 
-\## 🎯 Project Overview
+# Project Overview
 
 
 
