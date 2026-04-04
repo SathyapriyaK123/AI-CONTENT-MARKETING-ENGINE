@@ -92,16 +92,9 @@ pip install -r requirements.txt
 copy .env.example .env
 \# Edit .env and add your OPENAI\_API\_KEY
 ```
-
-
-
-
-5\. Run the application:
-
+5 Run the application:
 ```bash
-
 uvicorn app.main:app --reload
-
 ```
 
 
