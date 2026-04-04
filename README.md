@@ -28,7 +28,7 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 -  Product descriptions (benefit-focused)
 -  Full marketing campaigns
 
-### ⚡ Advanced Features
+# Advanced Features
 - ✅ **Parallel execution** - 50% faster campaign generation
 - ✅ **Real-time progress tracking** - See percentage and current step
 - ✅ **Tone controls** - 5 different writing styles
