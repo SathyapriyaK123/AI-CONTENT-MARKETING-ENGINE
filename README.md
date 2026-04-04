@@ -188,7 +188,7 @@ copy .env.example .env
 http://localhost:8000/docs
 ```
 
-## 📖 Usage Examples
+# Usage Examples
 
 ### Synchronous (Immediate Response)
 ```python
@@ -227,7 +227,7 @@ while True:
         time.sleep(2)
 ```
 
-## 🎯 API Endpoints
+# API Endpoints
 
 ### Synchronous Generation
 - `POST /generate/blog` - Generate blog post
