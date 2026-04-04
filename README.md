@@ -1,4 +1,4 @@
-# 🚀 AI Content Marketing Engine
+#  AI Content Marketing Engine
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com)
