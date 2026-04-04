@@ -1,25 +1,14 @@
-\# Contributing Guidelines
+# Contributing Guidelines
+# Development Setup
 
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/my-feature`
+3. Make changes
+4. Test thoroughly
+5. Commit with descriptive messages
+6. Push and create Pull Request
 
-
-\## Development Setup
-
-1\. Fork the repository
-
-2\. Create feature branch: `git checkout -b feature/my-feature`
-
-3\. Make changes
-
-4\. Test thoroughly
-
-5\. Commit with descriptive messages
-
-6\. Push and create Pull Request
-
-
-
-\## Commit Message Format
-
+# Commit Message Format
 \- `feat:` New feature
 
 \- `fix:` Bug fix
