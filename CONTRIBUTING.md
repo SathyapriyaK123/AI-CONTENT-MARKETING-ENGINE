@@ -16,16 +16,10 @@
 \- `test:` Add tests
 \- `chore:` Maintenance
 
-
-
-\## Code Style
-
+# Code Style
 \- Follow PEP 8 for Python
-
 \- Use meaningful variable names
-
 \- Add comments for complex logic
-
 \- Update documentation
 
 
