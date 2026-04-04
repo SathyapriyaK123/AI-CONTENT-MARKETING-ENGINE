@@ -22,15 +22,9 @@
 \- Add comments for complex logic
 \- Update documentation
 
-
-
-\## Pull Request Process
-
-1\. Ensure all tests pass
-
-2\. Update README if needed
-
-3\. Describe changes clearly
-
-4\. Link related issues
+# Pull Request Process
+1. Ensure all tests pass
+2. Update README if needed
+3. Describe changes clearly
+4. Link related issues
 
