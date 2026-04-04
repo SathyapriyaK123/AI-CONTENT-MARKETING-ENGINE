@@ -57,7 +57,7 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 -  Sentence analysis
 -  Keyword density
 
-# 🛠️ Tech Stack
+# Tech Stack
 \*\*Backend:\*\*
 - Python 3.10+
 - FastAPI
