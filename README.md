@@ -99,10 +99,8 @@ uvicorn app.main:app --reload
 
 Visit: http://localhost:8000
 
-
-
-\## 📚 API Documentation
-## 🔥 API Endpoints
+# API Documentation
+# API Endpoints
 
 ### Content Generation
 - **POST** `/generate/blog` - Generate blog posts
