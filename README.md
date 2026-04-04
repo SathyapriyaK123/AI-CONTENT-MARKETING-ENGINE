@@ -59,12 +59,12 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 
 # 🛠️ Tech Stack
 \*\*Backend:\*\*
-\- Python 3.10+
-\- FastAPI
-\- Celery + Redis
-\- OpenAI API
-\*\*Frontend:\*\*
-\- React 
+- Python 3.10+
+- FastAPI
+- Celery + Redis
+- OpenAI API
+-Frontend:\*\*
+- React 
 
 # Installation
 # Prerequisites
@@ -126,9 +126,9 @@ Once running, visit:
 *Week 3 Content Structuring & Optimization
 *Week 4: Frontend Integration & Deployment 
 
-## 🏗️ Architecture
+# Architecture
 
-### Synchronous Endpoints (Immediate Response)
+# Synchronous Endpoints (Immediate Response)
 - `/generate/*` - Direct generation, returns result immediately
 - Best for: Quick content generation, testing
 
@@ -146,7 +146,7 @@ User Request → FastAPI → Redis (Queue) → Celery Worker → Groq AI
      ↓                                          ↓
 Poll /async/status/{task_id}  ←──────── Result Ready
 ```
-## 🚀 Quick Start
+# Quick Start
 
 ### Prerequisites
 - Python 3.8+
