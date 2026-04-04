@@ -66,24 +66,13 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 \*\*Frontend:\*\*
 \- React 
 
-
-
 # Installation
+# Prerequisites
+- Python 3.10+
+- Git
+- OpenAI API Key
 
-
-
-\### Prerequisites
-
-\- Python 3.10+
-
-\- Git
-
-\- OpenAI API Key
-
-
-
-\### Setup
-
+# Setup
 
 
 1\. Clone the repository:
