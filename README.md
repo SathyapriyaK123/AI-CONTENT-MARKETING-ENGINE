@@ -51,11 +51,11 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 -  Environment-based configuration
 
 # Analytics & Quality
-- ✅ Flesch Reading Ease score
-- ✅ Grade level calculation
-- ✅ Word count validation
-- ✅ Sentence analysis
-- ✅ Keyword density
+-  Flesch Reading Ease score
+-  Grade level calculation
+-  Word count validation
+-  Sentence analysis
+-  Keyword density
 
 \## 🛠️ Tech Stack
 
