@@ -41,14 +41,14 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
   **Input validation** - Comprehensive error checking
 
 # Technical Excellence
-- ✅ Async task processing (Celery + Redis)
-- ✅ Background job processing
-- ✅ Task cancellation
-- ✅ Automatic cleanup (1-hour expiration)
-- ✅ RESTful API with Swagger docs
-- ✅ Comprehensive logging
-- ✅ User-friendly error messages
-- ✅ Environment-based configuration
+-  Async task processing (Celery + Redis)
+-  Background job processing
+-  Task cancellation
+-  Automatic cleanup (1-hour expiration)
+-  RESTful API with Swagger docs
+-  Comprehensive logging
+-  User-friendly error messages
+-  Environment-based configuration
 
 ### 📊 Analytics & Quality
 - ✅ Flesch Reading Ease score
