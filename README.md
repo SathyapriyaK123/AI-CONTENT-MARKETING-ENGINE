@@ -120,19 +120,11 @@ Once running, visit:
 \- Swagger UI: http://localhost:8000/docs
 \- ReDoc: http://localhost:8000/redoc
 
-
-
-\## 🗓️ Development Timeline
-
-
-
-\- \*\*Week 1:\*\* API Integration \& Foundation ⏳
-
-\- \*\*Week 2:\*\* Asynchronous Task Queue 📅
-
-\- \*\*Week 3:\*\* Content Structuring \& Optimization 📅
-
-\- \*\*Week 4:\*\* Frontend Integration \& Deployment 📅
+# Development Timeline
+*Week 1: API Integration & Foundation 
+*Week 2: Asynchronous Task Queue 
+*Week 3 Content Structuring & Optimization
+*Week 4: Frontend Integration & Deployment 
 
 ## 🏗️ Architecture
 
