@@ -78,17 +78,10 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 git clone https://github.com/SathyapriyaK123/AI-CONTENT-MARKETING-ENGINE.git
 cd AI-CONTENT-MARKETING-ENGINE
 ```
-
-
-
-2\. Create virtual environment:
-
+2 Create virtual environment:
 ```bash
-
 python -m venv venv
-
 venv\\Scripts\\activate
-
 ```
 
 
