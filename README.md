@@ -73,16 +73,10 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 - OpenAI API Key
 
 # Setup
-
-
-1\. Clone the repository:
-
+1 Clone the repository:
 ```bash
-
 git clone https://github.com/SathyapriyaK123/AI-CONTENT-MARKETING-ENGINE.git
-
 cd AI-CONTENT-MARKETING-ENGINE
-
 ```
 
 
