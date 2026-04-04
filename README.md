@@ -12,14 +12,10 @@ A multi-modal AI-powered content marketing engine that generates cohesive market
 
 # Project Overview
 This project is part of the Infotact GenAI Technical Internship Program. It demonstrates the implementation of:
-
-\- Multi-modal AI content generation (text + images)
-
-\- Asynchronous task queue architecture
-
-\- RESTful API design with FastAPI
-
-\- Background job processing with Celery + Redis
+- Multi-modal AI content generation (text + images)
+- Asynchronous task queue architecture
+- RESTful API design with FastAPI
+- Background job processing with Celery + Redis
 
 
 
