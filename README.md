@@ -50,7 +50,7 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 -  User-friendly error messages
 -  Environment-based configuration
 
-### 📊 Analytics & Quality
+# Analytics & Quality
 - ✅ Flesch Reading Ease score
 - ✅ Grade level calculation
 - ✅ Word count validation
