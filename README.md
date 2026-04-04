@@ -29,18 +29,18 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 -  Full marketing campaigns
 
 # Advanced Features
--  **Parallel execution** - 50% faster campaign generation
--  **Real-time progress tracking** - See percentage and current step
--  **Tone controls** - 5 different writing styles
--  **Industry templates** - 8 pre-optimized industries
--  **Content quality analysis** - Readability scores, word count validation
--  **SEO optimization** - Meta descriptions, title tags, keywords
--  **Keyword extraction** - Auto-generate hashtags and keywords
--  **Retry logic** - Automatic retry with exponential backoff
--  **Rate limit handling** - Smart API usage management
--  **Input validation** - Comprehensive error checking
+  **Parallel execution** - 50% faster campaign generation
+  **Real-time progress tracking** - See percentage and current step
+  **Tone controls** - 5 different writing styles
+  **Industry templates** - 8 pre-optimized industries
+  **Content quality analysis** - Readability scores, word count validation
+  **SEO optimization** - Meta descriptions, title tags, keywords
+  **Keyword extraction** - Auto-generate hashtags and keywords
+  **Retry logic** - Automatic retry with exponential backoff
+  **Rate limit handling** - Smart API usage management
+  **Input validation** - Comprehensive error checking
 
-### 🔧 Technical Excellence
+# Technical Excellence
 - ✅ Async task processing (Celery + Redis)
 - ✅ Background job processing
 - ✅ Task cancellation
