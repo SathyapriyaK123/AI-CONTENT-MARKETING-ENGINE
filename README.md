@@ -18,8 +18,7 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 - Background job processing with Celery + Redis
 
 #  Features
-
-### 🎨 Content Generation (7+ Types)
+# Content Generation (7+ Types)
 - ✅ Blog posts with tone control (professional, casual, funny, formal, persuasive)
 - ✅ Industry-optimized blogs (tech, fashion, health, food, finance, education, ecommerce, real estate)
 - ✅ Twitter/X posts (multiple variants)
