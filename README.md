@@ -8,10 +8,6 @@
 
 [Quick Start](#quick-start) • [Features](#features) • [API Docs](http://localhost:8000/docs) • [Demo](#demo)
 
-
-
-
-
 A multi-modal AI-powered content marketing engine that generates cohesive marketing campaigns including blog posts, social media content, AI-generated images, and SEO metadata from a single campaign brief.
 
 
