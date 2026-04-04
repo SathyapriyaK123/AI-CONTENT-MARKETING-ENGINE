@@ -58,24 +58,13 @@ This project is part of the Infotact GenAI Technical Internship Program. It demo
 -  Keyword density
 
 \## 🛠️ Tech Stack
-
-
-
 \*\*Backend:\*\*
-
 \- Python 3.10+
-
 \- FastAPI
-
 \- Celery + Redis
-
 \- OpenAI API
-
-
-
 \*\*Frontend:\*\*
-
-\- React (Coming soon)
+\- React 
 
 
 
