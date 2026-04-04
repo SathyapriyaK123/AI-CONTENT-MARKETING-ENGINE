@@ -97,8 +97,6 @@ copy .env.example .env
 uvicorn app.main:app --reload
 ```
 
-
-
 Visit: http://localhost:8000
 
 
