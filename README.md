@@ -102,14 +102,14 @@ Visit: http://localhost:8000
 # API Documentation
 # API Endpoints
 
-### Content Generation
-- **POST** `/generate/blog` - Generate blog posts
-- **POST** `/generate/tweets` - Generate tweet variants
-- **POST** `/generate/instagram` - Generate Instagram captions
-- **POST** `/generate/linkedin` - Generate LinkedIn posts
-- **POST** `/generate/email` - Generate email marketing copy
-- **POST** `/generate/product-description` - Generate product descriptions
-- **POST** `/generate/campaign` - Generate complete marketing campaign
+# Content Generation
+**POST** `/generate/blog` - Generate blog posts
+ **POST** `/generate/tweets` - Generate tweet variants
+ **POST** `/generate/instagram` - Generate Instagram captions
+ **POST** `/generate/linkedin` - Generate LinkedIn posts
+ **POST** `/generate/email` - Generate email marketing copy
+ **POST** `/generate/product-description` - Generate product descriptions
+ **POST** `/generate/campaign` - Generate complete marketing campaign
 
 ### System
 - **GET** `/` - API information
