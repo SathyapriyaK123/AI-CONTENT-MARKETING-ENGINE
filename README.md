@@ -98,6 +98,14 @@ uvicorn app.main:app --reload
 ```
 
 Visit: http://localhost:8000
+# Manual Testing
+# Test Blog Generation
+
+1 Go to http://localhost:8000/frontend/index.html
+2 Enter campaign brief: "sustainable fashion"
+3 Click "Generate Blog Post"
+4 Verify blog appears
+
 
 # API Documentation
 # API Endpoints
